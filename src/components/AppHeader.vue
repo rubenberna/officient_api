@@ -1,6 +1,7 @@
 <template>
   <div class="app-header container">
-    <h1>App Header</h1>
+    <router-link to="/">
+      <h1 class="app-header-title">App Header</h1></router-link>
     <div class="app-header_sub">
       <p class="app-header_sub_intro">Things to say about this amazing app that is so great, so absolutely awsome, that even I have no words to describe it</p>
       <div class="right menu">
@@ -42,6 +43,10 @@
       flex-direction: column;
       border-bottom: 1px solid black;
       padding-top: 20px;
+
+      .app-header-title {
+        color: black;
+      }
 
       .app-header_sub {
           display: flex;
