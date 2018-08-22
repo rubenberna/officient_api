@@ -3,7 +3,7 @@
     <router-link to="/">
       <h1 class="app-header-title">App Header</h1></router-link>
     <div class="app-header_sub">
-      <p class="app-header_sub_intro">Things to say about this amazing app that is so great, so absolutely awsome, that even I have no words to describe it</p>
+      <p class="app-header_sub_intro">Things to say about this amazing app that is so great, so absolutely awsome, that I have no words to describe it</p>
       <div class="right menu">
           <div v-if="isLoggedIn"
                class="loggedIn">

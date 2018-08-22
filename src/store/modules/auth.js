@@ -1,8 +1,6 @@
 import api from '../../api/officient';
 import { router } from '../../main';
 
-const CLIENT_ID =	'504607';
-
 const state = {
   token: window.localStorage.getItem('officient_token')
 };

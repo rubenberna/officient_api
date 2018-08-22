@@ -19,7 +19,6 @@
     created() {
       const auth_code = window.location.search;
       this.oAuth(auth_code);
-      console.log(auth_code);
     }
   };
 </script>
