@@ -38,14 +38,18 @@ export default {
        });
   },
   fetchPeople(token) {
-    return axios.get(`${PROXY}${ROOT_URL}/1.0/people/7299/detail`, {
+    const options = { method: 'GET',
+      url: `${PROXY}${ROOT_URL}1.0/people/list`,
+      qs: { page: '0' },
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       }
-    })
-      .then((res) => {
-        console.log(res);
-      })
+    };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+      console.log(body);
+    });
   }
 };
 
