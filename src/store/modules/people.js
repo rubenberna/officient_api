@@ -12,7 +12,7 @@ const actions = {
   async fetchPeople({ rootState }) {
     const { token } = rootState.auth;
     const response = await api.fetchPeople(token);
-    console.log(response);
+    // console.log(response);
   }
 };
 
