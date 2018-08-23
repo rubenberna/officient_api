@@ -22,11 +22,13 @@ const actions = {
     commit('loadingFalse');
   },
   async fetchPerson({ rootState, commit }, id) {
+    commit('loadingTrue');
     const { token } = rootState.auth;
+    router.push('person/id');
     const response = await api.fetchPerson(token, id);
     console.log(response.data.data);
     commit('setPerson', response.data.data);
-    router.push('person/id');
+    commit('loadingFalse');
   }
 };
 
