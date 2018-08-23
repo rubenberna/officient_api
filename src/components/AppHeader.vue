@@ -10,17 +10,21 @@
             <div class="ui icon input">
               <input type="text"
                      placeholder="Search...">
-              <i class="search link icon"></i>
+                     <i class="search link icon"/>
             </div>
-            <a class="ui item logout"
-               @click="logout">
-               Logout
-            </a>
+              <a class="ui item logout"
+                 @click="logout">
+                 Logout
+              </a>
           </div>
-          <a v-else
-             href="#"
-             class="ui item"
-             @click="login">Login</a>
+          <div v-else>
+            <a href="#"
+               class="ui item"
+               @click="login">OAuth login</a>
+            <a href="#"
+               class="ui item"
+               @click="directLogin">Direct login</a>
+          </div>
       </div>
     </div>
   </div>
@@ -32,7 +36,7 @@
   export default {
     name: 'AppHeader',
     computed: mapGetters(['isLoggedIn']),
-    methods: mapActions(['login', 'logout']),
+    methods: mapActions(['login', 'logout', 'directLogin']),
   };
 </script>
 

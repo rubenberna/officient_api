@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    Please wait...
+  <div>
   </div>
 </template>
 
@@ -24,16 +23,9 @@
 </script>
 
 <style lang="css" scoped>
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
-
-
-
-//   import { mapActions } from 'vuex';
-//
-//   export default {
-//     name: 'AuthHandler',
-//     methods: mapActions(['finalizeLogin']),
-//     created() {
-//       this.finalizeLogin(window.location.search);
-//     }
-//   };

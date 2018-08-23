@@ -3,7 +3,6 @@ import Vue from 'vue';
 import auth from './modules/auth';
 import people from './modules/people';
 
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({

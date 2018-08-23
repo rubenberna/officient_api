@@ -38,31 +38,22 @@ export default {
        });
   },
   fetchPeople(token) {
-    const options = { method: 'GET',
-      url: `${PROXY}${ROOT_URL}1.0/people/list`,
-      qs: { page: '0' },
+    const page = 0;
+    return axios.get(`${PROXY}${ROOT_URL}/1.0/people/list?page=${page}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       }
-    };
-
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-      console.log(body);
-    });
+    })
   }
 };
 
 /*
 --- Axios ---
-return axios.get(`${PROXY}${ROOT_URL}/1.0/people/list?page=1`, {
+return axios.get(`${PROXY}${ROOT_URL}/1.0/people/list?page=0`, {
   headers: {
     Authorization: `Bearer ${token}`
   }
 })
-  .then((res) => {
-    console.log(res);
-  })
 
 -- Fetch --
 fetch(`${PROXY}${ROOT_URL}/1.0/people/list?page=1`, {
@@ -78,7 +69,7 @@ fetch(`${PROXY}${ROOT_URL}/1.0/people/list?page=1`, {
 
 const options = { method: 'GET',
   url: `${PROXY}${ROOT_URL}1.0/people/list`,
-  qs: { page: '1' },
+  qs: { page: '0' },
   headers: {
     Authorization: `Bearer ${token}`,
   }
@@ -86,7 +77,7 @@ const options = { method: 'GET',
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-  console.log(body);
+
 });
 
 */
