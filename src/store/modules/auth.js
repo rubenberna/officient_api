@@ -27,6 +27,7 @@ const actions = {
   logout: ({ commit }) => {
     commit('setToken', null);
     window.localStorage.removeItem('officient_token');
+    router.push('/');
   }
 };
 

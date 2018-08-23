@@ -1,7 +1,13 @@
 <template>
-  <div class="container">
-    <appLoader :loading='loading' />
-      {{ person }}
+  <div class="person-detail container">
+    <div class="person-detail_loggedIn"
+         v-if='isLoggedIn'>
+         <appLoader :loading='loading'
+         class="loader"/>
+         {{ person }}
+    </div>
+    <h2 v-else
+      class="container">You're not logged in...</h2>
   </div>
 </template>
 
@@ -11,7 +17,7 @@ import Loader from './Loader.vue'
 
 export default {
   name: 'PersonDetail',
-  computed: mapGetters(['person', 'loading']),
+  computed: mapGetters(['person', 'loading', 'isLoggedIn']),
   components: {
     appLoader: Loader
   }
@@ -19,4 +25,11 @@ export default {
 </script>
 
 <style lang="css">
+  .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
 </style>

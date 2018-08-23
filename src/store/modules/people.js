@@ -15,6 +15,7 @@ const getters = {
 
 const actions = {
   async fetchPeople({ rootState, commit }) {
+    commit('setPeople', null);
     commit('loadingTrue');
     const { token } = rootState.auth;
     const response = await api.fetchPeople(token);
@@ -22,6 +23,7 @@ const actions = {
     commit('loadingFalse');
   },
   async fetchPerson({ rootState, commit }, id) {
+    commit('setPerson', null);
     commit('loadingTrue');
     const { token } = rootState.auth;
     router.push('person/id');

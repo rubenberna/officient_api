@@ -25,7 +25,8 @@
           </tr>
         </tbody>
       </table>
-      <appLoader :loading='loading' />
+      <appLoader :loading='loading'
+                 class="loader"/>
     </div>
       <h1 v-else>Please login to get started</h1>
   </div>
@@ -69,5 +70,13 @@
   }
   i {
     color: #62929a;
+  }
+
+  .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
   }
 </style>
