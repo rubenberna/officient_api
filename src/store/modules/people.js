@@ -1,4 +1,5 @@
 import api from '../../api/officient';
+import { router } from '../../main';
 
 const state = {
   people: [],
@@ -8,6 +9,7 @@ const state = {
 
 const getters = {
   everyone: state => state.people,
+  person: state => state.person,
   loading: state => state.loading
 };
 
@@ -24,7 +26,7 @@ const actions = {
     const response = await api.fetchPerson(token, id);
     console.log(response.data.data);
     commit('setPerson', response.data.data);
-    // router.push('person/id');
+    router.push('person/id');
   }
 };
 
