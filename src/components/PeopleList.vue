@@ -9,7 +9,7 @@
           </tr>
         </thead>
         <tbody v-for='(person, i) in everyone' :key='`person-${i}`'>
-          <tr>
+          <tr @click.prevent='personDetail(person)'>
             <td>
               <h4 class="ui image header">
                 <i class="address card icon"></i>
@@ -41,7 +41,12 @@
       appLoader: Loader
     },
     computed: mapGetters(['everyone', 'isLoggedIn', 'loading']),
-    methods: mapActions(['fetchPeople']),
+    methods: {
+      ...mapActions(['fetchPeople', 'fetchPerson']),
+      personDetail(person) {
+        this.fetchPerson(person.id);
+      }
+    },
     created() {
       this.fetchPeople();
     }
