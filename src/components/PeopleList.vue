@@ -9,7 +9,7 @@
           </tr>
         </thead>
         <tbody v-for='(person, i) in everyone' :key='`person-${i}`'>
-          <tr>
+          <tr @click.prevent='personDetail(person)'>
             <td>
               <h4 class="ui image header">
                 <i class="address card icon"></i>
@@ -25,7 +25,8 @@
           </tr>
         </tbody>
       </table>
-      <appLoader :loading='loading' />
+      <appLoader :loading='loading'
+                 class="loader"/>
     </div>
       <h1 v-else>Please login to get started</h1>
   </div>
@@ -41,7 +42,12 @@
       appLoader: Loader
     },
     computed: mapGetters(['everyone', 'isLoggedIn', 'loading']),
-    methods: mapActions(['fetchPeople']),
+    methods: {
+      ...mapActions(['fetchPeople', 'fetchPerson']),
+      personDetail(person) {
+        this.fetchPerson(person.id);
+      }
+    },
     created() {
       this.fetchPeople();
     }
@@ -64,5 +70,13 @@
   }
   i {
     color: #62929a;
+  }
+
+  .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
   }
 </style>

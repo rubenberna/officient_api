@@ -44,6 +44,13 @@ export default {
         Authorization: `Bearer ${token}`
       }
     })
+  },
+  fetchPerson(token, id) {
+    return axios.get(`${PROXY}${ROOT_URL}/1.0/people/${id}/detail`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
   }
 };
 
