@@ -25,7 +25,6 @@
               <sui-grid-column stretched :width="12">
                 <sui-segment>
                   {{ itemInfo(person) }}
-
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -41,6 +40,7 @@
 import { mapGetters } from 'vuex';
 import Loader from './Loader.vue';
 import SuiVue from 'semantic-ui-vue';
+import moment from 'moment';
 
 export default {
   name: 'PersonDetail',
@@ -58,16 +58,18 @@ export default {
       this.active = name;
     },
     itemInfo(person) {
-      if (this.active === 'Bio') return`${person.name} started in ${person.current_role.start_date} as ${person.current_role.name}.`;
+      if (this.active === 'Bio') return`${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}. ${this.getGender(person)} and was born in ${person.birthdate} and is ${person.civil_state}.`;
       if (this.active === 'Contacts') return `Email: ${person.email} Phone: ${person.phone}`;
+    },
+    getGender(person) {
+      return person.gender === 'female' ? 'She' : 'He';
+    },
+    getStartDate(person) {
+      return moment(person.current_role.start_date, "YYYYMMDD").fromNow();
     }
   },
   computed: {
     ...mapGetters(['person', 'loading', 'isLoggedIn']),
-    gender(person) {
-      if (person.gender === 'female') return "she";
-      else "he";
-    }
   },
   components: {
     appLoader: Loader

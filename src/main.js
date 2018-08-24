@@ -5,6 +5,7 @@ import store from './store';
 import AuthHandler from './components/AuthHandler';
 import PeopleList from './components/PeopleList';
 import PersonDetail from './components/PersonDetail';
+require('dotenv').config();
 
 Vue.use(VueRouter);
 
