@@ -1,17 +1,17 @@
-import store from '../store';
-import qs from 'qs';
-import axios from 'axios';
-import request from 'request';
+import store from '../store'
+import qs from 'qs'
+import axios from 'axios'
+import request from 'request'
 
-const CLIENT_ID =	'504608';
-const CLIENT_SECRET = 'ayW8KiD4x3t8nYRY1G0YDUTVpf3rkRZRulZES2Gy5fWDQFoYpd';
+const client_id = process.env.VUE_APP_CLIENT_ID;
+const client_secret = process.env.VUE_APP_CLIENT_SECRET;
 const ROOT_URL = 'https://api.officient.io/';
 const PROXY = 'https://cors-anywhere.herokuapp.com/';
 
 export default {
   login() {
     const querystring = {
-      client_id: CLIENT_ID,
+      client_id,
       state: 'xyz'
     };
     window.location = `${ROOT_URL}/authorize?${qs.stringify(querystring)}`;
@@ -25,8 +25,8 @@ export default {
       headers: { 'content-type': 'application/json' },
       body:
         { grant_type: 'authorization_code',
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
+          client_id,
+          client_secret,
           code,
           redirect_uri: 'http://localhost:8080/oauth2/callback' },
        json: true };

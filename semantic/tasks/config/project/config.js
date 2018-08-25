@@ -5,21 +5,16 @@
 var
   extend   = require('extend'),
   fs       = require('fs'),
-  path     = require('path')
-
-  defaults = require('../defaults')
+  path     = require('path'),
+  defaults = require('../defaults'),
 ;
 
-require('dotenv').config()
 
 /*******************************
             Exports
 *******************************/
 
 module.exports = {
-
-  NODE_ENV: '"development"',
-  FIREBASE_KEY: JSON.stringify(process.env.FIRBASE_KEY),
 
   getPath: function(file, directory) {
     var
