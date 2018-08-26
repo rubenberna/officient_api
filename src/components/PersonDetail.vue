@@ -71,13 +71,13 @@ export default {
         Phone: ${person.phone}`;
 
       if (this.active === 'Commute')
-      return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}`;
+      return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}. The weekly commute extends to ${this.getWeeklyCommute(commute)}`;
 
       if (this.active === 'Wages')
       return 'Wages stuff';
     },
     getBirthday(person) {
-      return moment(person.birthdate).format("MMM Do YY");
+      return moment(person.birthdate).format("MMM Do YYYY");
     },
     getGender(person) {
       return person.gender === 'female' ? 'She' : 'He';
@@ -87,7 +87,6 @@ export default {
     },
     getTransport(commute) {
       const steps = commute.steps;
-      console.log(steps);
       let transports = [];
       for (let i = 0; i < steps.length; i++) {
         let entry = steps[i];
@@ -96,10 +95,16 @@ export default {
         }
       }
       return transports;
+    },
+    getWeeklyCommute(commute) {
+      const durationWeek = commute.duration.value * 10;
+      const durationWeekText = moment().startOf('day')
+        .seconds(durationWeek)
+        .format('h:mm:ss');
+      return durationWeekText;
     }
   },
   mounted() {
-    // const origin = `${this.person.address.city},${this.person.address.country_code}`
     this.fetchCommute();
   },
   components: {
