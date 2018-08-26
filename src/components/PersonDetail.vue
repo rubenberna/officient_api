@@ -24,7 +24,7 @@
 
               <sui-grid-column stretched :width="12">
                 <sui-segment>
-                  {{ itemInfo(person) }}
+                  {{ itemInfo(person, commute) }}
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -50,6 +50,9 @@ export default {
       active: 'Bio',
     };
   },
+  computed: {
+    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute']),
+  },
   methods: {
     ...mapActions(['fetchCommute']),
     isActive(name) {
@@ -58,7 +61,7 @@ export default {
     select(name) {
       this.active = name;
     },
-    itemInfo(person) {
+    itemInfo(person, commute) {
       if (this.active === 'Bio')
       return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
       ${this.getGender(person)} and was born in ${person.birthdate} and is ${person.civil_state}.`;
@@ -70,7 +73,7 @@ export default {
         Phone: ${person.phone}`;
 
       if (this.active === 'Commute')
-      return 'Commute stuff';
+      return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text}. ${this.getTransport(commute)}`;
 
       if (this.active === 'Wages')
       return 'Wages stuff';
@@ -81,13 +84,13 @@ export default {
     getStartDate(person) {
       return moment(person.current_role.start_date, "YYYYMMDD").fromNow();
     },
+    getTransport(commute) {
+      console.log("travel_mode" in commute.steps[1]);
+    }
   },
   mounted() {
     // const origin = `${this.person.address.city},${this.person.address.country_code}`
     this.fetchCommute();
-  },
-  computed: {
-    ...mapGetters(['person', 'loading', 'isLoggedIn']),
   },
   components: {
     appLoader: Loader

@@ -37,9 +37,12 @@ const actions = {
   async fetchCommute({ rootState, commit }) {
     commit('setCommute', null);
     const { person } = rootState.people;
-    const origin = `${person.address.city},${person.address.country_code}`
+    const origin_data = `${person.address.line_1},${person.address.city},${person.address.country_code}`
+    const origin = origin_data.replace(" ", "");
     const response = await GoogleAPI.fetchCommute(origin);
-    // console.log(response);
+    const commute = response.data.routes[0].legs[0];
+    console.log(commute);
+    commit('setCommute', commute)
   }
 };
 
