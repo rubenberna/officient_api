@@ -58,15 +58,20 @@ export default {
     },
     itemInfo(person) {
       if (this.active === 'Bio')
-      return`${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
+      return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
       ${this.getGender(person)} and was born in ${person.birthdate} and is ${person.civil_state}.`;
 
       if (this.active === 'Contacts')
-      console.log(`Email: ${person.email}
-        Phone: ${person.phone}`);
-      console.log(process.env.VUE_APP_BASE_URI);
-      return `Email: ${person.email}
-      Phone: ${person.phone}`;
+        // console.log(`Email: ${person.email}
+        //   Phone: ${person.phone}`);
+        return `Email: ${person.email}
+        Phone: ${person.phone}`;
+
+      if (this.active === 'Commute')
+      return 'Commute stuff';
+
+      if (this.active === 'Wages')
+      return 'Wages stuff';
     },
     getGender(person) {
       return person.gender === 'female' ? 'She' : 'He';

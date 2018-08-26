@@ -5,14 +5,14 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import api from '../api/officient';
+  import OfficientApi from '../api/officient';
 
   export default {
     name: 'AuthHandler',
     methods: {
       ...mapActions(['finalizeLogin']),
       oAuth() {
-        api.oAuth();
+        OfficientApi.oAuth();
       }
     },
     created() {

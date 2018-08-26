@@ -1,6 +1,7 @@
-import api from '../../api/officient';
+import OfficientApi from '../../api/officient';
 import { router } from '../../main';
 
+const genToken = process.env.VUE_APP_GEN_TOKEN;
 const GEN_TOKEN = 'db674fcbce189625e37f850e84b57227f1633e83';
 
 const state = {
@@ -13,7 +14,7 @@ const getters = {
 
 const actions = {
   login: () => {
-    api.login();
+    OfficientApi.login();
   },
   finalizeLogin({ commit }, token) {
       commit('setToken', token);

@@ -1,4 +1,4 @@
-import api from '../../api/officient';
+import OfficientApi from '../../api/officient';
 import { router } from '../../main';
 
 const state = {
@@ -18,7 +18,7 @@ const actions = {
     commit('setPeople', null);
     commit('loadingTrue');
     const { token } = rootState.auth;
-    const response = await api.fetchPeople(token);
+    const response = await OfficientApi.fetchPeople(token);
     commit('setPeople', response.data.data);
     commit('loadingFalse');
   },
@@ -27,7 +27,7 @@ const actions = {
     commit('loadingTrue');
     const { token } = rootState.auth;
     router.push('person/id');
-    const response = await api.fetchPerson(token, id);
+    const response = await OfficientApi.fetchPerson(token, id);
     console.log(response.data.data);
     commit('setPerson', response.data.data);
     commit('loadingFalse');
