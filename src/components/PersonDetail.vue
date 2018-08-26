@@ -37,9 +37,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Loader from './Loader.vue';
 import moment from 'moment';
+import qs from 'qs';
 
 export default {
   name: 'PersonDetail',
@@ -50,6 +51,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['fetchCommute']),
     isActive(name) {
       return this.active === name;
     },
@@ -78,7 +80,11 @@ export default {
     },
     getStartDate(person) {
       return moment(person.current_role.start_date, "YYYYMMDD").fromNow();
-    }
+    },
+  },
+  mounted() {
+    // const origin = `${this.person.address.city},${this.person.address.country_code}`
+    this.fetchCommute();
   },
   computed: {
     ...mapGetters(['person', 'loading', 'isLoggedIn']),

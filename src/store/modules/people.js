@@ -1,16 +1,19 @@
 import OfficientApi from '../../api/officient';
+import GoogleAPI from '../../api/google';
 import { router } from '../../main';
 
 const state = {
   people: [],
   person: null,
-  loading: false
+  loading: false,
+  commute: null
 };
 
 const getters = {
   everyone: state => state.people,
   person: state => state.person,
-  loading: state => state.loading
+  loading: state => state.loading,
+  commute: state => state.commute
 };
 
 const actions = {
@@ -26,11 +29,17 @@ const actions = {
     commit('setPerson', null);
     commit('loadingTrue');
     const { token } = rootState.auth;
-    router.push('person/id');
     const response = await OfficientApi.fetchPerson(token, id);
-    console.log(response.data.data);
     commit('setPerson', response.data.data);
+    router.push('person/:id');
     commit('loadingFalse');
+  },
+  async fetchCommute({ rootState, commit }) {
+    commit('setCommute', null);
+    const { person } = rootState.people;
+    const origin = `${person.address.city},${person.address.country_code}`
+    const response = await GoogleAPI.fetchCommute(origin);
+    // console.log(response);
   }
 };
 
@@ -40,6 +49,9 @@ const mutations = {
   },
   setPerson: (state, person) => {
     state.person = person;
+  },
+  setCommute: (state, commute) => {
+    state.commute = commute;
   },
   loadingTrue(state) {
      state.loading = true

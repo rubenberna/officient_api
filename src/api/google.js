@@ -6,5 +6,7 @@ import request from 'request';
 const google_api = process.env.VUE_APP_GOOGLE;
 
 export default {
-
+  fetchCommute(origin, destination) {
+    console.log(google_api);
+  }
 }
