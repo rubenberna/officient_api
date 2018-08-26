@@ -24,7 +24,7 @@
 
               <sui-grid-column stretched :width="12">
                 <sui-segment>
-                  {{ itemInfo(person) }}
+                  <div v-html='itemInfo(person, commute)'/>
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -37,9 +37,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Loader from './Loader.vue';
 import moment from 'moment';
+import qs from 'qs';
 
 export default {
   name: 'PersonDetail',
@@ -49,39 +50,62 @@ export default {
       active: 'Bio',
     };
   },
+  computed: {
+    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute']),
+  },
   methods: {
+    ...mapActions(['fetchCommute']),
     isActive(name) {
       return this.active === name;
     },
     select(name) {
       this.active = name;
     },
-    itemInfo(person) {
+    itemInfo(person, commute) {
       if (this.active === 'Bio')
       return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
-      ${this.getGender(person)} and was born in ${person.birthdate} and is ${person.civil_state}.`;
+      ${this.getGender(person)} and was born in ${this.getBirthday(person)} and is ${person.civil_state}.`;
 
       if (this.active === 'Contacts')
-        // console.log(`Email: ${person.email}
-        //   Phone: ${person.phone}`);
         return `Email: ${person.email}
         Phone: ${person.phone}`;
 
       if (this.active === 'Commute')
-      return 'Commute stuff';
+      return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}. The weekly commute extends to ${this.getWeeklyCommute(commute)}`;
 
       if (this.active === 'Wages')
       return 'Wages stuff';
+    },
+    getBirthday(person) {
+      return moment(person.birthdate).format("MMM Do YYYY");
     },
     getGender(person) {
       return person.gender === 'female' ? 'She' : 'He';
     },
     getStartDate(person) {
       return moment(person.current_role.start_date, "YYYYMMDD").fromNow();
+    },
+    getTransport(commute) {
+      const steps = commute.steps;
+      let transports = [];
+      for (let i = 0; i < steps.length; i++) {
+        let entry = steps[i];
+        if (entry.travel_mode === "TRANSIT") {
+          transports.push(entry.html_instructions);
+        }
+      }
+      return transports;
+    },
+    getWeeklyCommute(commute) {
+      const durationWeek = commute.duration.value * 10;
+      const durationWeekText = moment().startOf('day')
+        .seconds(durationWeek)
+        .format('h:mm:ss');
+      return durationWeekText;
     }
   },
-  computed: {
-    ...mapGetters(['person', 'loading', 'isLoggedIn']),
+  mounted() {
+    this.fetchCommute();
   },
   components: {
     appLoader: Loader
