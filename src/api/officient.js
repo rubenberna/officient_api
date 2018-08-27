@@ -51,40 +51,12 @@ export default {
         Authorization: `Bearer ${token}`
       }
     })
+  },
+  fetchWages(token, id) {
+    return axios.get(`${PROXY}${ROOT_URL}/1.0/wages/${id}/current`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
   }
 };
-
-/*
---- Axios ---
-return axios.get(`${PROXY}${ROOT_URL}/1.0/people/list?page=0`, {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-})
-
--- Fetch --
-fetch(`${PROXY}${ROOT_URL}/1.0/people/list?page=1`, {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-})
-.then(function(res){
-  console.log(res.json());
-})
-
--- Node --
-
-const options = { method: 'GET',
-  url: `${PROXY}${ROOT_URL}1.0/people/list`,
-  qs: { page: '0' },
-  headers: {
-    Authorization: `Bearer ${token}`,
-  }
-};
-
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-
-});
-
-*/

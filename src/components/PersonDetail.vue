@@ -6,7 +6,7 @@
          class="loader"/>
          <div class="person-detail-menu">
            <img class="person-detail-menu-image ui medium circular image"
-           :src="person.avatar">
+                :src="person.avatar">
 
            <sui-grid>
               <sui-grid-column :width="4">
@@ -24,7 +24,7 @@
 
               <sui-grid-column stretched :width="12">
                 <sui-segment>
-                  <div v-html='itemInfo(person, commute)'/>
+                  <div v-html='itemInfo(person, commute, timeEngagement)'/>
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -46,22 +46,22 @@ export default {
   name: 'PersonDetail',
   data() {
     return {
-      items: ['Bio', 'Contacts', 'Commute', 'Wages'],
+      items: ['Bio', 'Contacts', 'Commute', 'Time Engagement'],
       active: 'Bio',
     };
   },
   computed: {
-    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute']),
+    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute', 'timeEngagement']),
   },
   methods: {
-    ...mapActions(['fetchCommute']),
+    ...mapActions(['fetchCommute', 'fetchWages']),
     isActive(name) {
       return this.active === name;
     },
     select(name) {
       this.active = name;
     },
-    itemInfo(person, commute) {
+    itemInfo(person, commute, timeEngagement) {
       if (this.active === 'Bio')
       return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
       ${this.getGender(person)} and was born in ${this.getBirthday(person)} and is ${person.civil_state}.`;
@@ -73,8 +73,8 @@ export default {
       if (this.active === 'Commute')
       return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}. The weekly commute extends to ${this.getWeeklyCommute(commute)}`;
 
-      if (this.active === 'Wages')
-      return 'Wages stuff';
+      if (this.active === 'Time Engagement')
+      return timeEngagement;
     },
     getBirthday(person) {
       return moment(person.birthdate).format("MMM Do YYYY");
@@ -106,6 +106,7 @@ export default {
   },
   mounted() {
     this.fetchCommute();
+    this.fetchWages();
   },
   components: {
     appLoader: Loader
@@ -126,6 +127,7 @@ export default {
 
   .person-detail-menu-image.ui.medium.circular.image {
     width: 334px;
+    background: linear-gradient(to right, #5d4157, #a8caba);
   }
 
   .ui.segment {
