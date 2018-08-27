@@ -15,10 +15,7 @@
           <div v-else>
             <a href="#"
                class="ui item"
-               @click="login">OAuth login</a>
-            <a href="#"
-               class="ui item"
-               @click="directLogin">Direct login</a>
+               @click="login">Login</a>
           </div>
       </div>
     </div>
@@ -31,7 +28,7 @@
   export default {
     name: 'AppHeader',
     computed: mapGetters(['isLoggedIn']),
-    methods: mapActions(['login', 'logout', 'directLogin']),
+    methods: mapActions(['login', 'logout']),
   };
 </script>
 
