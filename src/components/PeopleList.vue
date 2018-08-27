@@ -70,6 +70,8 @@
   }
   i {
     color: #62929a;
+    width: 40px;
+    height: 100%;
   }
 
   .loader {

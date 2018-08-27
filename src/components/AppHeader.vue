@@ -3,15 +3,10 @@
     <router-link to="/">
       <h1 class="app-header-title">App Header</h1></router-link>
     <div class="app-header_sub">
-      <p class="app-header_sub_intro">Things to say about this amazing app that is so great, so absolutely awsome, that I have no words to describe it</p>
+      <p class="app-header_sub_intro">This App provides details of each employee stored in a Officient account, in combination with a Google Api to measure the work commute</p>
       <div class="right menu">
           <div v-if="isLoggedIn"
                class="loggedIn">
-            <div class="ui icon input">
-              <input type="text"
-                     placeholder="Search...">
-                     <i class="search link icon"/>
-            </div>
               <a class="ui item logout"
                  @click="logout">
                  Logout
@@ -45,7 +40,7 @@
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
-      border-bottom: 1px solid black;
+      border-bottom: 2px solid #62929a;
       padding-top: 20px;
 
       .app-header-title {

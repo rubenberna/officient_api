@@ -5,8 +5,11 @@
          <appLoader :loading='loading'
          class="loader"/>
          <div class="person-detail-menu">
-           <img class="person-detail-menu-image ui medium circular image"
-                :src="person.avatar">
+           <div class="person-detail-card">
+             <img class="person-detail-menu-image ui medium circular image"
+             :src="person.avatar">
+             <h2>{{ person.name }}</h2>
+           </div>
 
            <sui-grid>
               <sui-grid-column :width="4">
@@ -24,7 +27,7 @@
 
               <sui-grid-column stretched :width="12">
                 <sui-segment>
-                  <div v-html='itemInfo(person, commute, timeEngagement)'/>
+                  <div v-html='itemInfo(person, commute, schedule)'/>
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -40,18 +43,17 @@
 import { mapActions, mapGetters } from 'vuex';
 import Loader from './Loader.vue';
 import moment from 'moment';
-import qs from 'qs';
 
 export default {
   name: 'PersonDetail',
   data() {
     return {
-      items: ['Bio', 'Contacts', 'Commute', 'Time Engagement'],
+      items: ['Bio', 'Contacts', 'Commute', 'Schedule'],
       active: 'Bio',
     };
   },
   computed: {
-    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute', 'timeEngagement']),
+    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute', 'schedule']),
   },
   methods: {
     ...mapActions(['fetchCommute', 'fetchWages']),
@@ -61,7 +63,7 @@ export default {
     select(name) {
       this.active = name;
     },
-    itemInfo(person, commute, timeEngagement) {
+    itemInfo(person, commute, schedule) {
       if (this.active === 'Bio')
       return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
       ${this.getGender(person)} and was born in ${this.getBirthday(person)} and is ${person.civil_state}.`;
@@ -73,8 +75,15 @@ export default {
       if (this.active === 'Commute')
       return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}. The weekly commute extends to ${this.getWeeklyCommute(commute)}`;
 
-      if (this.active === 'Time Engagement')
-      return timeEngagement;
+      if (this.active === 'Schedule') {
+        let timetable = [];
+        for (let day in schedule) {
+          let hour = schedule[day] / 60;
+          timetable.push(`${day}: ${hour} hours`)
+        }
+        const weekdays = timetable.splice(0, 5);
+        return weekdays
+      }
     },
     getBirthday(person) {
       return moment(person.birthdate).format("MMM Do YYYY");
@@ -125,6 +134,12 @@ export default {
     justify-content: space-around;
   }
 
+  .person-detail-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #5c5757;
+  }
   .person-detail-menu-image.ui.medium.circular.image {
     width: 334px;
     background: linear-gradient(to right, #5d4157, #a8caba);

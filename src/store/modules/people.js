@@ -7,7 +7,7 @@ const state = {
   person: null,
   loading: false,
   commute: null,
-  timeEngagement: null
+  schedule: null
 };
 
 const getters = {
@@ -15,7 +15,7 @@ const getters = {
   person: state => state.person,
   loading: state => state.loading,
   commute: state => state.commute,
-  timeEngagement: state => state.timeEngagement
+  schedule: state => state.schedule
 };
 
 const actions = {
@@ -43,16 +43,15 @@ const actions = {
     const origin = origin_data.replace(" ", "");
     const response = await GoogleAPI.fetchCommute(origin);
     const commute = response.data.routes[0].legs[0];
-    console.log(commute);
     commit('setCommute', commute)
   },
   async fetchWages({ rootState, commit}) {
-    commit('setWages', null);
+    commit('setSchedule', null);
     const { token } = rootState.auth;
     const id = rootState.people.person.id;
     const response = await OfficientApi.fetchWages(token, id);
-    const timeEngagement = response.data.data.weekly_time_engagement_minutes;
-    commit('setTimeEngagement', timeEngagement);
+    const schedule = response.data.data.weekly_time_engagement_minutes;
+    commit('setSchedule', schedule);
   }
 };
 
@@ -66,8 +65,8 @@ const mutations = {
   setCommute: (state, commute) => {
     state.commute = commute;
   },
-  setTimeEngagement: (state, timeEngagement) => {
-    state.timeEngagement = timeEngagement;
+  setSchedule: (state, schedule) => {
+    state.schedule = schedule;
   },
   loadingTrue(state) {
      state.loading = true
