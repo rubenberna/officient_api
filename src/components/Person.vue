@@ -28,6 +28,7 @@
               <sui-grid-column stretched :width="12">
                 <sui-segment>
                   <div v-html='itemInfo(person, commute, schedule)'/>
+                  <!-- <div v-html="legacySystemHTML"/> -->
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -45,15 +46,15 @@ import Loader from './Loader.vue';
 import moment from 'moment';
 
 export default {
-  name: 'PersonDetail',
+  name: 'Person',
   data() {
     return {
       items: ['Bio', 'Contacts', 'Commute', 'Schedule'],
-      active: 'Bio',
+      active: 'Bio'
     };
   },
   computed: {
-    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute', 'schedule']),
+    ...mapGetters(['person', 'loading', 'isLoggedIn', 'commute', 'schedule'])
   },
   methods: {
     ...mapActions(['fetchCommute', 'fetchWages']),
@@ -65,12 +66,12 @@ export default {
     },
     itemInfo(person, commute, schedule) {
       if (this.active === 'Bio')
-      return `${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.
-      ${this.getGender(person)} and was born in ${this.getBirthday(person)} and is ${person.civil_state}.`;
+        return `<p>${person.name} started working with us ${this.getStartDate(person)} as ${person.current_role.name}.</p>
+        <p>${this.getGender(person)} and was born in ${this.getBirthday(person)} and is ${person.civil_state}.</p>`;
 
       if (this.active === 'Contacts')
-        return `Email: ${person.email}
-        Phone: ${person.phone}`;
+        return `<p> Email: ${person.email} </p>
+        <p>Phone: ${person.phone} </p>`;
 
       if (this.active === 'Commute')
       return `On a daily basis, ${person.name.split(' ')[0]} travels ${commute.distance.text} to come to work, with an average duration of ${commute.duration.text} per trip. The transports used may include: ${this.getTransport(commute)}. The weekly commute extends to ${this.getWeeklyCommute(commute)}`;
@@ -82,7 +83,13 @@ export default {
           timetable.push(`${day}: ${hour} hours`)
         }
         const weekdays = timetable.splice(0, 5);
-        return weekdays
+        return `<ul>
+                  <li>${weekdays[0]}</li>
+                  <li>${weekdays[1]}</li>
+                  <li>${weekdays[2]}</li>
+                  <li>${weekdays[3]}</li>
+                  <li>${weekdays[4]}</li>
+                </ul>`
       }
     },
     getBirthday(person) {

@@ -4,7 +4,7 @@ import App from './App'
 import store from './store'
 import AuthHandler from './components/AuthHandler'
 import PeopleList from './components/PeopleList'
-import PersonDetail from './components/PersonDetail'
+import Person from './components/Person'
 
 Vue.use(VueRouter);
 
@@ -13,7 +13,7 @@ export const router = new VueRouter({
   routes: [
     { path: '/oauth2/callback', component: AuthHandler },
     { path: '/', component: PeopleList},
-    { path: '/person/:id', component: PersonDetail }
+    { path: '/person/:id', component: Person }
   ]
 });
 
