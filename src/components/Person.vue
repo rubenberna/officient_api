@@ -7,7 +7,7 @@
          <div class="person-detail-menu">
            <div class="person-detail-card">
              <img class="person-detail-menu-image ui medium circular image"
-             :src="person.avatar">
+                  :src="person.avatar">
              <h2>{{ person.name }}</h2>
            </div>
 
@@ -28,7 +28,6 @@
               <sui-grid-column stretched :width="12">
                 <sui-segment>
                   <div v-html='itemInfo(person, commute, schedule)'/>
-                  <!-- <div v-html="legacySystemHTML"/> -->
                 </sui-segment>
               </sui-grid-column>
             </sui-grid>
@@ -113,7 +112,6 @@ export default {
           transports.push(entry.html_instructions);
         }
       }
-      console.log(transports);
       if (transports.length > 2) {
         const last = transports.pop();
         return `${transports.join(", ")} and ${last}`;

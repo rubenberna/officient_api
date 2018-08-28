@@ -33,7 +33,7 @@ const actions = {
     const { token } = rootState.auth;
     const response = await OfficientApi.fetchPerson(token, id);
     commit('setPerson', response.data.data);
-    router.push('person/:id');
+    router.push({path: `/person/${id}`});
     commit('loadingFalse');
   },
   async fetchCommute({ rootState, commit }) {
