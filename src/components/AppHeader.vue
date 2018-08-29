@@ -1,9 +1,11 @@
 <template>
   <div class="app-header container">
     <router-link to="/">
-      <h1 class="app-header-title">App Header</h1></router-link>
+      <h1 class="app-header-title">App Header</h1>
+    </router-link>
     <div class="app-header_sub">
-      <p class="app-header_sub_intro">This App provides information of each employee stored in a Officient account, in combination with a Google Api to measure the work commute</p>
+      <p class="app-header_sub_intro">
+        App that provides information on each employee stored in an Officient account, in combination with a Google Api to measure the work commute</p>
       <div class="right menu">
           <div v-if="isLoggedIn"
                class="loggedIn">

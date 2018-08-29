@@ -29,13 +29,13 @@ export default {
           client_secret,
           code,
           redirect_uri: 'http://localhost:8080/oauth2/callback' },
-       json: true };
+      json: true };
 
-       request(options, function (error, response, body) {
-         if (error) throw new Error(error);
-         let token = body.access_token;
-         store.dispatch('finalizeLogin', token);
-       });
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        let token = body.access_token;
+        store.dispatch('finalizeLogin', token);
+      });
   },
   fetchPeople(token) {
     const page = 0;
@@ -59,4 +59,4 @@ export default {
       }
     })
   }
-};
+}

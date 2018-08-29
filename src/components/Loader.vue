@@ -1,6 +1,9 @@
 <template >
     <div v-if="loading">
-        <scale-loader :loading="loading" :color="color" :height="height" :width="width"></scale-loader>
+      <scale-loader :loading="loading"
+                    :color="color"
+                    :height="height"
+                    :width="width" />
     </div>
 </template>
 

@@ -8,6 +8,7 @@
             <th>Email address</th>
           </tr>
         </thead>
+
         <tbody v-for='(person, i) in everyone' :key='`person-${i}`'>
           <tr @click.prevent='personDetail(person)'>
             <td>
@@ -19,16 +20,16 @@
                 </div>
               </h4>
             </td>
-            <td>
-              {{ person.email}}
-            </td>
+            <td>{{ person.email}}</td>
           </tr>
         </tbody>
       </table>
       <appLoader :loading='loading'
                  class="loader"/>
     </div>
-      <h1 v-else>Please login to get started</h1>
+      <h1 v-else>
+        Please login to get started
+      </h1>
   </div>
 </template>
 
